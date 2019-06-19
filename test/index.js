@@ -13,15 +13,16 @@ var assert = require('assert')
   , txtReadPath =fixturesDir + 'text.txt'
   , emptyReadPath = fixturesDir + 'emptydoc.txt'
   , largeBlobPath = tmpDir + '1mbBlob'
-  , server
+  , client
   , db
 
+let MongoClient = mongo.MongoClient
 
 describe('test', function(){
   var id;
   before(function (done) {
-    server = new mongo.Server('localhost', 27017);
-    db = new mongo.Db('gridstream_test', server, {w:1});
+    let url = 'mongodb://localhost:27017'
+    
     if (!fs.existsSync(tmpDir)) {
       fs.mkdirSync(tmpDir);
     }
@@ -29,7 +30,12 @@ describe('test', function(){
       if (err) {
         done(err);
       }
-      db.open(done)
+      MongoClient.connect(url, (err, mongoClient) => {
+        if (err) return done(err)
+        client = mongoClient
+        db = client.db('gridstream_test')
+        done()
+      })
     });
   });
 
@@ -784,7 +790,7 @@ describe('test', function(){
       }
       fs.rmdir(tmpDir, function () {
         db.dropDatabase(function () {
-          db.close(true, done);
+          client.close(true, done);
         });
       });
     });

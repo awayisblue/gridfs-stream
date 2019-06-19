@@ -1,16 +1,17 @@
-# gridfs-stream
+# blue-gridfs
+
 
 Easily stream files to and from MongoDB [GridFS](http://www.mongodb.org/display/DOCS/GridFS).
 
 ## Please note
 
-gridfs-stream v1.x uses [Stream2 API from nodejs v0.10](http://nodejs.org/docs/v0.10.36/api/stream.html) (and the mongodb v2.x driver). It provides more robust and easier to use streams. If for some reason you need nodejs v0.8 streams, please switch to the [gridfs-stream 0.x branch](https://github.com/aheckmann/gridfs-stream/tree/0.x)
+blue-gridfs v1.x uses [Stream2 API from nodejs v0.10](http://nodejs.org/docs/v0.10.36/api/stream.html) (and the mongodb v2.x driver). It provides more robust and easier to use streams. If for some reason you need nodejs v0.8 streams, please switch to the [blue-gridfs 0.x branch](https://github.com/aheckmann/blue-gridfs/tree/0.x)
 
 ## Description
 
 ```js
 var mongo = require('mongodb');
-var Grid = require('gridfs-stream');
+var Grid = require('blue-gridfs');
 
 // create or use an existing mongodb-native db instance
 var db = new mongo.Db('yourDatabaseName', new mongo.Server("127.0.0.1", 27017));
@@ -50,14 +51,14 @@ Created streams are compatible with other Node streams so piping anywhere is eas
 ## install
 
 ```
-npm install gridfs-stream
+npm install blue-gridfs
 ```
 
 ## use
 
 ```js
 var mongo = require('mongodb');
-var Grid = require('gridfs-stream');
+var Grid = require('blue-gridfs');
 
 // create or use an existing mongodb-native db instance.
 // for this example we'll just create one:
@@ -72,7 +73,7 @@ db.open(function (err) {
 })
 ```
 
-The `gridfs-stream` module exports a constructor that accepts an open [mongodb-native](https://github.com/mongodb/node-mongodb-native/) db and the [mongodb-native](https://github.com/mongodb/node-mongodb-native/) driver you are using. _The db must already be opened before calling `createWriteStream` or `createReadStream`._
+The `blue-gridfs` module exports a constructor that accepts an open [mongodb-native](https://github.com/mongodb/node-mongodb-native/) db and the [mongodb-native](https://github.com/mongodb/node-mongodb-native/) driver you are using. _The db must already be opened before calling `createWriteStream` or `createReadStream`._
 
 Now we're ready to start streaming.
 
@@ -200,7 +201,7 @@ Alternatively you can use the ```gfs.findOne```-shorthand to find a single file
 
 ```js
 var mongoose = require('mongoose');
-var Grid = require('gridfs-stream');
+var Grid = require('blue-gridfs');
 
 var conn = mongoose.createConnection(..);
 conn.once('open', function () {
@@ -210,11 +211,11 @@ conn.once('open', function () {
 })
 ```
 
-You may optionally assign the driver directly to the `gridfs-stream` module so you don't need to pass it along each time you construct a grid:
+You may optionally assign the driver directly to the `blue-gridfs` module so you don't need to pass it along each time you construct a grid:
 
 ```js
 var mongoose = require('mongoose');
-var Grid = require('gridfs-stream');
+var Grid = require('blue-gridfs');
 Grid.mongo = mongoose.mongo;
 
 var conn = mongoose.createConnection(..);
@@ -225,4 +226,4 @@ conn.once('open', function () {
 })
 ```
 
-[LICENSE](https://github.com/aheckmann/gridfs-stream/blob/master/LICENSE)
+[LICENSE](https://github.com/aheckmann/blue-gridfs/blob/master/LICENSE)
